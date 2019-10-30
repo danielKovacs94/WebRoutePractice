@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD) //on class level
+@Target(ElementType.METHOD)
 public @interface WebRoute {
     String value();
 }

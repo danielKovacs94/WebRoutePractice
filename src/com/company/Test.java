@@ -27,7 +27,6 @@ public class Test {
         for(Method method: Routes.class.getMethods()) {
             if(method.isAnnotationPresent(WebRoute.class)) {
                 WebRoute annotation = method.getAnnotation(WebRoute.class);
-                System.out.println("Annotation: " + annotation.toString());
                 String path = annotation.value();
                 routes.put(path, method);
                 server.createContext(path, new MyHandler());
@@ -39,13 +38,12 @@ public class Test {
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
-            System.out.println("Path: " + t.getHttpContext().getPath());
             Method methodToExecute = routes.get(t.getHttpContext().getPath());
-            String crud = t.getRequestMethod();
+            String requestMethod = t.getRequestMethod();
 
             String response = null;
             try {
-                response = (String) methodToExecute.invoke(new Routes(), crud );
+                response = (String) methodToExecute.invoke(new Routes(), requestMethod );
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }

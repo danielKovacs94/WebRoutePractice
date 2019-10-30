@@ -14,9 +14,9 @@ public class Routes {
     }
 
     @WebRoute("/test2")
-    public String test2(String met){
+    public String test2(String method){
 
-        if("POST".equals(met)){
+        if("POST".equals(method)){
             return "POST test2";
         }else{
             return "GET test2";
